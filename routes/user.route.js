@@ -12,34 +12,16 @@ const {
 } = require('../controllers/user.controller');
 
 router.get('/', (req, res) => {
-  res.render('pages/index', { 
-    title: 'Finly',  
-    info: req.flash('info')[0],
+  res.render('pages/index', { title: 'Finly' });
   });
-});
-
-router.get('/signup', redirectAuthenticated, (req, res) => {
-  res.render('pages/signup', {
-    title: 'Sign up',
-    user: req.flash('data')[0],
-    info: req.flash('info')[0],
-    errors: req.flash('errors'),
-  });
-});
-
-router.post('/signup', validateSignup, signup);
-
-router.get('/login', redirectAuthenticated, (req, res) => {
+  router.get('/login', (req, res) => {
   res.render('pages/login', {
-    title: 'Sign in',
-    user: req.flash('data')[0],
-    info: req.flash('info')[0],
-    errors: req.flash('errors'),
+  title: 'Sign in',
   });
-});
-
-router.post('/login', validateLogin, login);
-
-router.get('/logout', logout);
-
-module.exports = router;
+  });
+  router.get('/signup', (req, res) => {
+  res.render('pages/signup', {
+  title: 'Sign up',
+  });
+  });
+  module.exports = router;
