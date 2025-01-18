@@ -1,8 +1,12 @@
-const User = require('../libs/models/user.model');const createUser = async (req, res) => {
-  await User.create({
-  email: 'nathan@mail.com',
-  password: 'password',
-  });
+const { body, validationResult } = require('express-validator');
+const validateSignup = [
+body('email', 'Email must not be empty').notEmpty(),
+body('password', 'Password must not be empty').notEmpty(),
+body('password', 'Password must be 6+ characters long').isLength({ min: 6 }),
+body('repeatPassword', 'Repeat Password must not be empty').notEmpty(),
+body('repeatPassword', 'Passwords do not match').custom((value, { req }) => (value ===
+req.body.password)),
+];
   res.render('user', { message: 'User Created', user: null });
   };
   const getUser = async (req, res) => {
